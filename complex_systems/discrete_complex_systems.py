@@ -105,7 +105,7 @@ class NonLinearModel(DiscreteComplexSystem):
 
 
 class ACModel(NonLinearModel):
-    """Adult-Children Model Excercise.
+    """Adult-Children Model Exercise.
 
     Consider a population of adults and children. Assume that:
      - the population evolves by discrete steps corresponding to 1 year
