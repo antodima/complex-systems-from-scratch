@@ -2,7 +2,7 @@
 import matplotlib.pyplot as plt
 
 
-class ComplexSystem(object):
+class DiscrateComplexSystem(object):
 
     def evolve(self):
         """Evolve the system.
@@ -15,7 +15,7 @@ class ComplexSystem(object):
         raise NotImplementedError
 
 
-class LinearModel(ComplexSystem):
+class LinearModel(DiscrateComplexSystem):
     """Linear Model Discrete System.
     """
 
@@ -70,7 +70,7 @@ class LinearModel(ComplexSystem):
         plt.show()
 
 
-class NonLinearModel(ComplexSystem):
+class NonLinearModel(DiscrateComplexSystem):
     """Nonlinear Model Discrete System.
     """
 
