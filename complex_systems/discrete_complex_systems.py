@@ -46,7 +46,6 @@ class LinearModel(DiscreteComplexSystem):
         self.N[0] = initial_population
         for t in range(1, 20):
             self.N[t] = self.alpha * self.N[t-1] + self.beta
-        return self.N
 
     def evolution_at_t(self, t):
         """Evolution at time t.
@@ -94,7 +93,6 @@ class NonLinearModel(DiscreteComplexSystem):
         self.N[0] = initial_population
         for t in range(1, t_max):
             self.N[t] = self.rd * self.N[t-1] * (1 - (self.N[t-1] / self.k))
-        return self.N
 
     def plot(self):
         plt.figure('NonLinearModel')
@@ -140,23 +138,21 @@ class ACModel(NonLinearModel):
         self.beta = beta
         self.A = None # adults
         self.C = None # childrens
-        self.N = None # total population
 
     def evolve(self, initial_a_population=50, initial_c_population=5, max_time=20):
-        self.A = self.C = [None] * max_time
+        self.A = [0] * max_time
+        self.C = [0] * max_time
         self.A[0] = initial_a_population
         self.C[0] = initial_c_population
         for t in range(1, max_time):
             self.A[t] = self.alpha * self.A[t-1] + self.C[t-1] * (1 / 3)
             self.C[t] = self.beta * self.A[t-1] - self.C[t-1] * (1 - (1 / 3))
-        self.N = [a + c for a, c in zip(self.A, self.C)]
 
     def plot(self):
         plt.figure('ACModel')
         plt.plot(self.A)
         plt.plot(self.C)
-        plt.plot(self.N)
         plt.xlabel("Time")
         plt.ylabel("N")
-        plt.legend(['Adults', 'Childrens', 'Adults+Childrens'], loc='upper left')
+        plt.legend(['Adults', 'Childrens'], loc='upper left')
         plt.show()
