@@ -21,13 +21,27 @@ class OregonatorModel(ContinuousComplexSystem):
     of the oscillatory Belousov–Zhabotinsky reaction.
     """
     
-    def __init__(self):
+    def __init__(self, t):
         self.s = 77.27
         self.q = 8.375e-6
         self.w = 0.161
-        self.y = None
+        self.y = None # the solution/evolution of the system
+        self.t = t # the time points
         
     def __func_derivatives(self, y, t):
+        """Computes the derivatives of the differential equations.
+        
+        Parameters
+        ----------
+        y : list
+            the values of the system
+        t : numpy.linspace
+            the time points
+        
+        Returns
+        -------
+        the partial derivatives
+        """
         A = y[0]
         B = y[1]
         C = y[2]
@@ -36,13 +50,20 @@ class OregonatorModel(ContinuousComplexSystem):
         dC = 320 * self.w * (A - C)
         return [dA, dB, dC]
     
-    def evolve(self, y0, t):
-        self.y = odeint(self.__func_derivatives, y0, t)
+    def evolve(self, y0):
+        """Calls the Ordinary Differential Equation solver (ODE).
+        
+        Parameters
+        ----------
+        y0 : list
+            the initial condition of the system
+        """
+        self.y = odeint(self.__func_derivatives, y0, self.t)
     
-    def plot(self, t):
-        plt.plot(t, self.y[:, 0], label='A')
-        plt.plot(t, self.y[:, 1], label='B')
-        plt.plot(t, self.y[:, 2], label='C')
+    def plot(self):
+        plt.plot(self.t, self.y[:, 0], label='A')
+        plt.plot(self.t, self.y[:, 1], label='B')
+        plt.plot(self.t, self.y[:, 2], label='C')
         plt.xlabel('Time')
         plt.ylabel('Value')
         plt.legend(loc='upper right')

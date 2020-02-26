@@ -23,6 +23,6 @@ ac_model.evolve(initial_a_population=20, initial_c_population=5, max_time=20)
 y0 = [1, 1, 2]
 # time points
 t = np.linspace(0, 2, 120000)
-oregonator_model = continuous.OregonatorModel()
-oregonator_model.evolve(y0, t)
-oregonator_model.plot(t)
+oregonator_model = continuous.OregonatorModel(t)
+oregonator_model.evolve(y0)
+oregonator_model.plot()
