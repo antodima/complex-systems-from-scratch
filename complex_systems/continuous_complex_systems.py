@@ -177,7 +177,7 @@ class PPVModel(ContinuousComplexSystem):
         self.y = odeint(self.deltas, y0, self.t)
         
     def plot(self):
-        plt.figure('LotkaVolterraModel')
+        plt.figure('PPVModel')
         plt.plot(self.t, self.y[:, 0], label='V')
         plt.plot(self.t, self.y[:, 1], label='P')
         plt.plot(self.t, self.y[:, 2], label='F')
