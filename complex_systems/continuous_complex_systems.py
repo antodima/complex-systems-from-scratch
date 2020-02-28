@@ -28,7 +28,7 @@ class OregonatorModel(ContinuousComplexSystem):
         self.y = None # the solution/evolution of the system
         self.t = t # the time points
         
-    def __func_derivatives(self, y, t):
+    def __deltas(self, y, t):
         """Computes the derivatives of the differential equations.
         
         Parameters
@@ -58,7 +58,7 @@ class OregonatorModel(ContinuousComplexSystem):
         y0 : list
             the initial condition of the system
         """
-        self.y = odeint(self.__func_derivatives, y0, self.t)
+        self.y = odeint(self.__deltas, y0, self.t)
     
     def plot(self):
         plt.plot(self.t, self.y[:, 0], label='A')
