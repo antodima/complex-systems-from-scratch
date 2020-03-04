@@ -41,7 +41,9 @@ class OregonatorModel(ContinuousComplexSystem):
         self.s = 77.27
         self.q = 8.375e-6
         self.w = 0.161
-        self.y = None # the solution/evolution of the system
+        self.A = []
+        self.B = []
+        self.C = []
         self.t = t # the time points
         
     def deltas(self, y, t):
@@ -54,13 +56,16 @@ class OregonatorModel(ContinuousComplexSystem):
         return [dA, dB, dC]
     
     def evolve(self, y0):
-        self.y = odeint(self.deltas, y0, self.t)
+        y = odeint(self.deltas, y0, self.t)
+        self.A = y[:, 0]
+        self.B = y[:, 1]
+        self.C = y[:, 2]
     
     def plot(self):
         plt.figure('OregonatorModel')
-        plt.plot(self.t, self.y[:, 0], label='A')
-        plt.plot(self.t, self.y[:, 1], label='B')
-        plt.plot(self.t, self.y[:, 2], label='C')
+        plt.plot(self.t, self.A, label='A')
+        plt.plot(self.t, self.B, label='B')
+        plt.plot(self.t, self.C, label='C')
         plt.xlabel('Time')
         plt.ylabel('Value')
         plt.legend(loc='upper right')
@@ -76,10 +81,9 @@ class LotkaVolterraModel(ContinuousComplexSystem):
         self.s = death_rate
         self.a = meeting_rate # predator-prey meetings
         self.b = n_offsprings # number of offsprings produced for each hunting
-        self.V = None # preys
-        self.P = None # predators
+        self.V = [] # preys
+        self.P = [] # predators
         self.t = t
-        self.y = None
         
     def deltas(self, y, t):
         V = y[0]
@@ -89,12 +93,14 @@ class LotkaVolterraModel(ContinuousComplexSystem):
         return [dV, dP]
         
     def evolve(self, y0):
-        self.y = odeint(self.deltas, y0, self.t)
+        y = odeint(self.deltas, y0, self.t)
+        self.V = y[:, 0]
+        self.P = y[:, 1]
         
     def plot(self):
         plt.figure('LotkaVolterraModel')
-        plt.plot(self.t, self.y[:, 0], label='V')
-        plt.plot(self.t, self.y[:, 1], label='P')
+        plt.plot(self.t, self.V, label='V')
+        plt.plot(self.t, self.P, label='P')
         plt.xlabel('Time')
         plt.ylabel('Value')
         plt.legend(loc='upper right')
@@ -107,15 +113,14 @@ class SIRModel(ContinuousComplexSystem):
     """
     
     def __init__(self, t, infection_coefficient=6, recovery_rate=2, growth_rate=2, vaccination_rate=0.1):
-        self.S = None
-        self.I = None
-        self.R = None
+        self.S = []
+        self.I = []
+        self.R = []
         self.beta = infection_coefficient
         self.gamma = recovery_rate
         self.mi = growth_rate # μ
         self.p = vaccination_rate
         self.t = t
-        self.y = None
         
     def deltas(self, y, t):
         S = y[0]
@@ -127,16 +132,19 @@ class SIRModel(ContinuousComplexSystem):
         return [dS, dI, dR]
     
     def evolve(self, y0):
-        self.y = odeint(self.deltas, y0, self.t)
+        y = odeint(self.deltas, y0, self.t)
+        self.S = y[:, 0]
+        self.I = y[:, 1]
+        self.R = y[:, 2]
     
     def vaccination_threshold(self):
         return 1 - (self.mi + self.gamma) / self.beta
     
     def plot(self):
         plt.figure('SIRModel')
-        plt.plot(self.t, self.y[:, 0], label='S')
-        plt.plot(self.t, self.y[:, 1], label='I')
-        plt.plot(self.t, self.y[:, 2], label='R')
+        plt.plot(self.t, self.S, label='S')
+        plt.plot(self.t, self.I, label='I')
+        plt.plot(self.t, self.R, label='R')
         plt.xlabel('Time')
         plt.ylabel('Value')
         plt.legend(loc='upper right')
@@ -158,11 +166,10 @@ class PPVModel(ContinuousComplexSystem):
         self.a = meeting_rate # predator-prey meetings
         self.b = n_offsprings # number of offsprings produced for each hunting
         self.v = growth_rate_veg # vegetation growth rate
-        self.V = None # preys
-        self.P = None # predators
-        self.F = None # vegetations
+        self.V = [] # preys
+        self.P = [] # predators
+        self.F = [] # vegetations
         self.t = t
-        self.y = None
         
     def deltas(self, y, t):
         V = y[0]
@@ -174,13 +181,16 @@ class PPVModel(ContinuousComplexSystem):
         return [dV, dP, dF]
         
     def evolve(self, y0):
-        self.y = odeint(self.deltas, y0, self.t)
+        y = odeint(self.deltas, y0, self.t)
+        self.V = y[:, 0]
+        self.P = y[:, 1]
+        self.F = y[:, 2]
         
     def plot(self):
         plt.figure('PPVModel')
-        plt.plot(self.t, self.y[:, 0], label='V')
-        plt.plot(self.t, self.y[:, 1], label='P')
-        plt.plot(self.t, self.y[:, 2], label='F')
+        plt.plot(self.t, self.V, label='V')
+        plt.plot(self.t, self.P, label='P')
+        plt.plot(self.t, self.F, label='F')
         plt.xlabel('Time')
         plt.ylabel('Value')
         plt.legend(loc='upper right')
