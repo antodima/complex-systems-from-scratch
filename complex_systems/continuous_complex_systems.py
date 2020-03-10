@@ -199,13 +199,15 @@ class PPVModel(ContinuousComplexSystem):
         plt.show()
 
 
-class Brusselator(ContinuousComplexSystem):
+class BrusselatorModel(ContinuousComplexSystem):
     """The Brusselator is a theoretical model for a type of autocatalytic reaction.
 
     https://en.wikipedia.org/wiki/Brusselator
     """
-    def __init__(self, model_path):
-        self.rr = roadrunner.RoadRunner(model_path)
+    def __init__(self):
+        import os
+        path = 'complex_systems/models/brusselator.sbml'
+        self.rr = roadrunner.RoadRunner(os.path.abspath(path))
 
     def evolve(self, start=0, end=10, outputs=100):
         result = self.rr.simulate(start, end, outputs)

@@ -52,6 +52,6 @@ ppv_model = continuous.PPVModel(t)
 ppv_model.evolve(y0)
 #ppv_model.plot()
 
-brusselator_model = continuous.Brusselator('models/brusselator.sbml')
+brusselator_model = continuous.BrusselatorModel()
 brusselator_model.evolve()
 brusselator_model.plot()
