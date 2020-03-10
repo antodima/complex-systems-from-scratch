@@ -1,4 +1,5 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
 import numpy as np
 
 from complex_systems import discrete_complex_systems as discrete
@@ -36,7 +37,7 @@ lv_model.evolve(y0)
 
 y0 = [0.99, 0.01, 0]
 t = np.linspace(0, 10, 10)
-sir_model =  continuous.SIRModel(t, infection_coefficient=1800, 
+sir_model =  continuous.SIRModel(t, infection_coefficient=1800,
                                  vaccination_rate=0.5,
                                  recovery_rate=100,
                                  growth_rate=0.02)
@@ -51,3 +52,6 @@ ppv_model = continuous.PPVModel(t)
 ppv_model.evolve(y0)
 #ppv_model.plot()
 
+brusselator_model = continuous.Brusselator('models/brusselator.sbml')
+brusselator_model.evolve()
+brusselator_model.plot()

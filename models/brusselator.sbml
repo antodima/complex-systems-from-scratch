@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sbml xmlns="http://www.sbml.org/sbml/level2/version4" level="2" version="4">
+  <model>
+    <notes>
+      <p xmlns="http://www.w3.org/1999/xhtml">MODEL NUMBER:
+//  MODEL NUMBER: 0329
+   MODEL NAME: Brusselator
+   SHORT DESCRIPTION: The Brusselator (combination of Brussels and Oscillator) equations of
+   I. Prigogine and R. Lefever are solved both continuously and stochastically.
+DIAGRAM:
+   Four chemical reactions are being modeled:
+
+    Reaction            Rate Constant
+    A -&gt; X 		(k1)
+    2X + Y -&gt; 3X 	(k2)
+    B + X -&gt; Y + C 	(k3)
+    X -&gt; D 		(k4)
+
+DETAILED DESCRIPTION: The Brusselator equations form an oscillating system that
+approaches a limit cycle. For an example of oscillating systems watch a video
+of the Briggs-Rauscher Oscillating Reaction (several videos available on the
+internet).
+
+The same equations are solved stochastically using the Gillespie method.
+A and B are fixed, X and Y vary, C and D are not calculated.
+
+NOTE: to increase the number of molecules by a factor
+of 10, divide k1 by 10, k2 by 1000, k3 by 100, and k4 by 10.
+Be sure to make the corresponding change in the ODE model.
+
+Compute lambda1, lambda2, ... lambda4 as shown in the code
+for model StochasticBrusselator.
+
+Sum the lambda&apos;s to calculate lambda.
+Create a random exponential distribution by taking the natural
+  log of uniform random numbers.
+When multiplied by -1/lambda it becomes the time step when 
+  another reaction takes place. The uneven time steps are
+  accumulated in tau.
+A second uniform random number for which reaction takes place
+  is determined by the probability of the reaction which is the
+  ratio of its lambda to the sum of all the other lambdas.
+  We Calculate P1=lambda1/lambda, P2=(lambda1+lambda2)/lambda, ...
+  For the reaction selected, the appropriate pools are 
+  incremented or decremented in whole units.
+
+KEY WORDS:
+Brusselator, stochastic, Gillespie, oscillating reaction, equilibria,
+limit cycle
+
+REFERENCES:
+
+I. Prigogine and R. Lefever, Symmetry Breaking Instabilities in Dissipative Systems. II,
+J. Chem. Phys. 48, 1695 (1968).
+
+D.T. Gillespie, Exact stochastic simulation of coupled chemical reactions,
+J. Phys. Chem., 1977, 81 (25), pp 2340–2361.
+
+REVISION HISTORY:
+ 
+
+JSim SOFTWARE COPYRIGHT AND REQUEST FOR ACKNOWLEDGMENT OF USE:
+   
+JSim software was developed with support from NIH grants HL088516, 
+and HL073598. Please cite these grants in any publication for which 
+this software is used and send one reprint of published abstracts or 
+articles to the address given below. Academic use is unrestricted. 
+Software may be copied so long as this copyright notice is included.
+
+Copyright (C) 1999-2011 University of Washington.
+
+Contact Information:
+ 
+The National Simulation Resource,  
+Director J. B. Bassingthwaighte, 
+Department of Bioengineering, 
+University of Washington, Seattle, WA 
+98195-5061
+</p>
+    </notes>
+    <listOfUnitDefinitions>
+      <unitDefinition id="sec_inv" name="sec^-1">
+        <listOfUnits>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mM_inv_x_sec_inv" name="mM^-1*sec^-1">
+        <listOfUnits>
+          <unit kind="metre" exponent="3" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="mole" exponent="-1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mM_inv2_x_sec_inv" name="mM^-2*sec^-1">
+        <listOfUnits>
+          <unit kind="metre" exponent="6" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="mole" exponent="-2" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mM" name="mM">
+        <listOfUnits>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1"/>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+      <unitDefinition id="mM_per_sec" name="mM/sec">
+        <listOfUnits>
+          <unit kind="metre" exponent="-3" scale="0" multiplier="1"/>
+          <unit kind="second" exponent="-1" scale="0" multiplier="1"/>
+          <unit kind="mole" exponent="1" scale="0" multiplier="1"/>
+        </listOfUnits>
+      </unitDefinition>
+    </listOfUnitDefinitions>
+    <listOfParameters>
+      <parameter id="Y" units="mM" constant="false"/>
+      <parameter id="B" value="30" units="mM" constant="true"/>
+      <parameter id="X" units="mM" constant="false"/>
+      <parameter id="A" value="5" units="mM" constant="true"/>
+      <parameter id="X0" value="30" units="mM" constant="true"/>
+      <parameter id="k4" value="0.1" units="sec_inv" constant="true"/>
+      <parameter id="k3" value="0.01" units="mM_inv_x_sec_inv" constant="true"/>
+      <parameter id="k2" value="0.001" units="mM_inv2_x_sec_inv" constant="true"/>
+      <parameter id="k1" value="0.1" units="sec_inv" constant="true"/>
+      <parameter id="Y0" value="30" units="mM" constant="true"/>
+    </listOfParameters>
+    <listOfInitialAssignments>
+      <initialAssignment symbol="X">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> X0 </ci>
+        </math>
+      </initialAssignment>
+      <initialAssignment symbol="Y">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <ci> Y0 </ci>
+        </math>
+      </initialAssignment>
+    </listOfInitialAssignments>
+    <listOfRules>
+      <rateRule variable="X">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <minus/>
+            <apply>
+              <minus/>
+              <apply>
+                <plus/>
+                <apply>
+                  <times/>
+                  <ci> k1 </ci>
+                  <ci> A </ci>
+                </apply>
+                <apply>
+                  <times/>
+                  <ci> k2 </ci>
+                  <ci> X </ci>
+                  <ci> X </ci>
+                  <ci> Y </ci>
+                </apply>
+              </apply>
+              <apply>
+                <times/>
+                <ci> k3 </ci>
+                <ci> B </ci>
+                <ci> X </ci>
+              </apply>
+            </apply>
+            <apply>
+              <times/>
+              <ci> k4 </ci>
+              <ci> X </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+      <rateRule variable="Y">
+        <math xmlns="http://www.w3.org/1998/Math/MathML">
+          <apply>
+            <plus/>
+            <apply>
+              <times/>
+              <ci> k2 </ci>
+              <ci> X </ci>
+              <ci> X </ci>
+              <ci> Y </ci>
+              <cn> -1 </cn>
+            </apply>
+            <apply>
+              <times/>
+              <ci> k3 </ci>
+              <ci> B </ci>
+              <ci> X </ci>
+            </apply>
+          </apply>
+        </math>
+      </rateRule>
+    </listOfRules>
+  </model>
+</sbml>
+
