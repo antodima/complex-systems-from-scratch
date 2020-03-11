@@ -4,6 +4,8 @@ import numpy as np
 
 from complex_systems import discrete_complex_systems as discrete
 from complex_systems import continuous_complex_systems as continuous
+from complex_systems import stochastic_complex_systems as stochastic
+
 
 
 linear_model = discrete.LinearModel(rd=1.5, sd=0.9, beta=10)
@@ -54,4 +56,8 @@ ppv_model.evolve(y0)
 
 brusselator_model = continuous.BrusselatorModel()
 brusselator_model.evolve()
-brusselator_model.plot()
+#brusselator_model.plot()
+
+enzymatic_model = stochastic.EnzymaticActivityModel()
+enzymatic_model.evolve()
+enzymatic_model.plot()

@@ -206,7 +206,7 @@ class BrusselatorModel(ContinuousComplexSystem):
     """
     def __init__(self):
         import os
-        path = 'complex_systems/models/brusselator.sbml'
+        path = 'complex_systems/models/brusselator.xml'
         self.rr = roadrunner.RoadRunner(os.path.abspath(path))
 
     def evolve(self, start=0, end=10, outputs=100):
