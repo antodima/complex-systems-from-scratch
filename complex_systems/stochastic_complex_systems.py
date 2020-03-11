@@ -12,22 +12,6 @@ class StochasticComplexSystem(object):
         """
         raise NotImplementedError
 
-    def deltas(self, y, t):
-        """Computes the derivatives of the differential equations.
-
-        Parameters
-        ----------
-        y : list
-            the values of the system
-        t : numpy.linspace
-            the time points
-
-        Returns
-        -------
-        the partial derivatives
-        """
-        raise NotImplementedError
-
     def plot(self):
         """Plot the evolution of the system.
         """
