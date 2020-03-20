@@ -12,12 +12,14 @@ Implementation of Complex Systems Models from scratch
 # PRISM Installation
 [Instructions](https://www.prismmodelchecker.org/manual/InstallingPRISM/Instructions)
 ```
-sudo apt update
+1. sudo apt update
+2. sudo apt -y install make gcc g++ default-jdk git
 ```
 ```
-sudo apt -y install make gcc g++ default-jdk git
-```
-```
-git clone https://github.com/prismmodelchecker/prism.git \
-cd prism/prism && make && make test
+3. sudo mkdir /opt/prism
+4. cd /opt/prism
+5. sudo git clone https://github.com/prismmodelchecker/prism.git
+6. cd prism/prism
+7. sudo make && make test
+sudo ./install.sh
 ```
