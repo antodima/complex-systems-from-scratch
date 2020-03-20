@@ -21,5 +21,5 @@ Implementation of Complex Systems Models from scratch
 5. sudo git clone https://github.com/prismmodelchecker/prism.git
 6. cd prism/prism
 7. sudo make && make test
-sudo ./install.sh
+8. sudo ./install.sh
 ```
