@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=4.5
+Type=Application
+Name=PRISM Model Checker
+GenericName=PRISM
+Exec=/opt/prism/prism/prism/bin/xprism
+Terminal=false
+StartupNotify=true
