@@ -1,0 +1,50 @@
+dtmc
+
+module coffee
+
+  s : [0..3] init 0;
+
+  [coin] s=0 -> (s'=1);
+  [coin] s=1 -> (s'=2);
+  [button] s=2 -> (s'=3);
+  [] s=3 -> (s'=0);
+
+endmodule
+
+
+module user1
+
+  u : [0..3] init 0;
+
+  [coin1] u=0 -> (u'=1);
+  [coin1] u=1 -> (u'=2);
+  [button1] u=2 -> (u'=3);
+
+endmodule
+
+
+module user2
+
+  v : [0..3] init 0;
+
+  [coin2] v=0 -> (v'=1);
+  [coin2] v=1 -> (v'=2);
+  [button2] v=2 -> (v'=3);
+
+endmodule
+
+// module user2 = user1 [u=v , coin1=coin2, button1 = button2] endmodule
+
+module coord
+
+  turn : [0..2] init 0;
+
+  [coin] turn=0 -> (turn'=1);
+  [coin1] turn=1 -> (turn'=0);
+  [coin2] turn=1 -> (turn'=0);
+
+  [button] turn=0 -> (turn'=2);
+  [button1] turn=2 -> (turn'=0);
+  [button2] turn=2 -> (turn'=0);
+
+endmodule

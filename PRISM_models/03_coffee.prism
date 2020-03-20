@@ -1,0 +1,23 @@
+dtmc
+
+module coffee
+
+  s : [0..3] init 0;
+
+  [coin] s=0 -> (s'=1);
+  [coin] s=1 -> (s'=2);
+  [button] s=2 -> (s'=3);
+  [] s=3 -> (s'=0);
+
+endmodule
+
+
+module user
+
+  u : [0..3] init 0;
+
+  [coin] u=0 -> (u'=1);
+  [coin] u=1 -> (u'=2);
+  [button] u=2 -> (u'=3);
+
+endmodule

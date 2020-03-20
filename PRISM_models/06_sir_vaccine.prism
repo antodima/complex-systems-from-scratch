@@ -1,0 +1,24 @@
+ctmc
+
+const double beta = 0.01;
+const double gamma = 0.2;
+const double mu = 0.02;
+const double p;
+
+const int MAX = 100;
+
+module SIR
+
+  s : [0..MAX] init 99;
+  i : [0..MAX] init 1;
+  r : [0..MAX] init 0;
+
+  [] s<MAX -> MAX*mu*(1-p) : (s'=s+1);
+  [] r<MAX -> MAX*mu*p : (r'=r+1);
+  [] s>0 -> mu*s : (s'=s-1);
+  [] i>0 -> mu*i : (i'=i-1);
+  [] r>0 -> mu*r : (r'=r-1);
+  [] s>0 & i>0 & i<MAX -> beta*s*i : (s'=s-1) & (i'=i+1);
+  [] i>0 & r<MAX -> gamma*i : (i'=i-1) & (r'=r+1);
+
+endmodule

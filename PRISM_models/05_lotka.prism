@@ -1,0 +1,18 @@
+ctmc
+
+const double k1 = 10;
+const double k2 = 0.1;
+const double k3 = 10;
+
+const MAX = 1000;
+
+module lotka
+
+  v : [0..MAX] init 100;
+  p : [0..MAX] init 100;
+
+  [] v>0 & v<MAX -> k1*v : (v'=v+1);
+  [] v>0 & p>0 & p<MAX -> k2*v*p : (v'=v-1) & (p'=p+1);
+  [] p>0 -> k3*p : (p'=p-1);
+
+endmodule
